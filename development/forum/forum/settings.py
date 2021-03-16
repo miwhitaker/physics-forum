@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'physics_forum',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -123,8 +124,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 #Registration
-ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
-LOGIN_REDIRECT_URL = ''
+SIMPLE_BACKEND_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
 
 SITE_ID = 1
+
+#REST Framework settings
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framwork.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
