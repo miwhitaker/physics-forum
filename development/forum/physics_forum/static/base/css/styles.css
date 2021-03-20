@@ -1,29 +1,109 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    background: lightcoral;
+    margin-top: -20px;
+    padding-top: 5px;
+    text-align: center;
+    background: rgb(32, 11, 11);
+    color: yellow;
+    height: 120px;
+    font: Georgia, serif;
+    font-size: 1.2rem;
+    border-bottom: 2px solid white;
 }
 
-.universe {
-    background-color: aqua;
+.log {
+    color: whitesmoke;
+    padding-right: 5px;
+    text-align: right;
+}
+
+span > h4 {
+    float: right;
+    background-color:darkslategrey;
+    text-align: right;
+}
+
+.login-info {
+    float: right;
+    color: whitesmoke;
+    text-align: right;
+    margin-right: 15px;
+}
+
+.scale {
+    margin-top: 15px;
+    margin-left: 5px;
+    padding-top: 12px;
     height: 60px;
     text-align: center;
+    border: 5px solid #CCCCCC;
+    background-color: rgba(189, 164, 209, 0.3);
+    border-radius: 20px;
+    text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
+    color: white;
+    font: 1.5em Georgia, serif;
+    box-shadow: 2px 2px 2px black;
 }
 
 .astro {
-    background-color: lightgreen;
+    margin-top: 15px;
+    margin-left: 5px;
+    padding-top: 12px;
     height: 60px;
     text-align: center;
+    border: 5px solid #CCCCCC;
+    background-color: rgba(189, 164, 209, 0.3);
+    border-radius: 20px;
+    text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
+    color: white;
+    font: 1.5em Georgia, serif;
+    box-shadow: 2px 2px 2px black;
 }
 
 .planet {
-    background-color: lightslategray;
+    margin-top: 15px;
+    margin-left: 5px;
+    padding-top: 12px;
     height: 60px;
     text-align: center;
+    border: 5px solid #CCCCCC;
+    background-color: rgba(189, 164, 209, 0.3);
+    border-radius: 20px;
+    text-shadow: 1px 1px  black, 0 0  blue, 0 0  blue;
+    color: white;
+    font: 1.5em Georgia, serif;
+    box-shadow: 2px 2px 2px black;
 }
 
 .quantum {
-    background-color: yellow;
+    margin-top: 15px;
+    margin-left: 5px;
+    padding-top: 12px;
     height: 60px;
     text-align: center;
+    border: 5px solid #CCCCCC;
+    background-color: rgba(205, 191, 218, 0.3);
+    border-radius: 20px;
+    text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
+    color: white;
+    font: 1.5em Georgia, serif;
+    box-shadow: 2px 2px 2px black;
+}
+
+.universe:hover, .astro:hover, .planet:hover, .quantum:hover, .scale:hover {
+    background-color: rgba(205, 191, 218, 0.5);
+}
+
+.questions {
+    text-align: left;
+    margin-top: 20px;
+    color: white;
+    background-color: rgba(26, 21, 21, 0.6);
+}
+
+#bg {
+    height: 600px;
+    background-image: url('../img/electric.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
