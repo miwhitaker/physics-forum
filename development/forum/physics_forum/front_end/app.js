@@ -4,6 +4,8 @@ import Category from "./components/category.jsx"
 import QuestionList from "./components/questionlist.jsx"
 
 
+// For the state variables, display is what tells the components what to render (hard-coded values). The values
+// are initial (no category clicked), then universe, astro, planet, quantum for each category
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -11,7 +13,27 @@ class App extends React.Component {
   }
 
   clickCategory(value) {
-    console.log("clicked on " + String(value));
+    let current = this.state.display
+    if(value === 1) {
+      let newCat = (current === "universe") ? "initial" : "universe"
+      this.setState({display: newCat});
+    }
+    else if(value === 2) {
+      let newCat = (current === "astro") ? "initial" : "astro"
+      this.setState({display: newCat});
+    }
+    else if(value === 3) {
+      let newCat = (current === "planet") ? "initial" : "planet"
+      this.setState({display: newCat});
+    }
+    else if(value === 4) {
+      let newCat = (current === "quantum") ? "initial" : "quantum"
+      this.setState({display: newCat});
+    }
+    else{
+      this.setState({display: "initial"});
+    }
+    document.getElementById('root').classList.add(current)
   }
 
   render() {

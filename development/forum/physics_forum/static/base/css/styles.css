@@ -44,52 +44,7 @@ span > h4 {
     box-shadow: 2px 2px 2px black;
 }
 
-.astro {
-    margin-top: 15px;
-    margin-left: 5px;
-    padding-top: 12px;
-    height: 60px;
-    text-align: center;
-    border: 5px solid #CCCCCC;
-    background-color: rgba(189, 164, 209, 0.3);
-    border-radius: 20px;
-    text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
-    color: white;
-    font: 1.5em Georgia, serif;
-    box-shadow: 2px 2px 2px black;
-}
-
-.planet {
-    margin-top: 15px;
-    margin-left: 5px;
-    padding-top: 12px;
-    height: 60px;
-    text-align: center;
-    border: 5px solid #CCCCCC;
-    background-color: rgba(189, 164, 209, 0.3);
-    border-radius: 20px;
-    text-shadow: 1px 1px  black, 0 0  blue, 0 0  blue;
-    color: white;
-    font: 1.5em Georgia, serif;
-    box-shadow: 2px 2px 2px black;
-}
-
-.quantum {
-    margin-top: 15px;
-    margin-left: 5px;
-    padding-top: 12px;
-    height: 60px;
-    text-align: center;
-    border: 5px solid #CCCCCC;
-    background-color: rgba(205, 191, 218, 0.3);
-    border-radius: 20px;
-    text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
-    color: white;
-    font: 1.5em Georgia, serif;
-    box-shadow: 2px 2px 2px black;
-}
-
-.universe:hover, .astro:hover, .planet:hover, .quantum:hover, .scale:hover {
+.scale:hover {
     background-color: rgba(205, 191, 218, 0.5);
 }
 
@@ -106,4 +61,38 @@ span > h4 {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+.universe {
+    background-image: url('../img/galaxy.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.astro {
+    background-image: url('../img/protostar');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.planet {
+    background-image: url('../img/kinetic.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.quantum {
+    background-image: url('../img/molecule.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+table {
+    width: 100%;
+    padding: 10px;
+}
+
+.new {
+    background-color: darkgray;
 }

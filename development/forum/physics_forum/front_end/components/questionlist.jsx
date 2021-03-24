@@ -2,8 +2,9 @@ import React from "react";
 
 export default function QuestionList(props) {
   console.log(props.mode)
+  if(props.mode === "initial"){
     return(
-      <div className = " questions col-md-8">
+      <div className = "questions col-md-8">
         <p>
           Choose a category on the left to view the list of posts. Each category is grouped by scale.
         </p>
@@ -22,3 +23,34 @@ export default function QuestionList(props) {
       </div>
     );
   }
+  else {
+    return(
+      <div className = "questions col-md-8">
+        <button className = "new">New Question</button>
+        <div>
+          <table className = "q-details">
+            <thead>
+              <tr>
+                <th>Date/Time</th>
+                <th>User</th>
+                <th>Answers</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>5/15/19 3:00</td>
+                <td>MoreCowbell</td>
+                <td>3</td>
+              </tr>
+              <tr>
+                <td>8/1/20 6:30</td>
+                <td>Turd Ferguson</td>
+                <td>1</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    )
+  }
+}
