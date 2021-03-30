@@ -23,33 +23,47 @@ export default function QuestionList(props) {
       </div>
     );
   }
-  else {
+  else if (props.mode === 'universe' || props.mode === 'astro' || props.mode === 'planet' || props.mode === 'quantum') {
     return(
       <div className = "questions col-md-8">
-        <button className = "new">New Question</button>
-        <div>
-          <table className = "q-details">
-            <thead>
-              <tr>
-                <th>Date/Time</th>
-                <th>User</th>
-                <th>Answers</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>5/15/19 3:00</td>
-                <td>MoreCowbell</td>
-                <td>3</td>
-              </tr>
-              <tr>
-                <td>8/1/20 6:30</td>
-                <td>Turd Ferguson</td>
-                <td>1</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <button className = "new" 
+                onClick = {props.newQuestion}
+                >New Question</button>
+{/* apply hidden attribut to button  */}
+              
+        <section className = "question-container">
+          <a href = "#" 
+            className = "question-details"
+            onClick = {props.clickQuestion}>
+              Question someone asked
+          </a>
+          <div className = "details-container">
+            <div>5/15/19 3:00</div>
+            <div>MoreCowbell</div>
+            <div>3</div>
+          </div>
+        </section>
+        <section className = "question-container">
+          <a href = "#" 
+            className = "question-details"
+            onClick = "clickQuestion">
+              Question someone else asked
+          </a>
+          <div className = "details-container">
+            <div>8/1/20 6:30</div>
+            <div>Turd Ferguson</div>
+            <div>1</div>
+          </div>
+        </section>
+      </div>
+    )
+  }
+
+  else {
+    return(
+      <div>
+        Question and answers
+        <button>Submit an Answer</button>
       </div>
     )
   }

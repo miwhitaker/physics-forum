@@ -18,7 +18,6 @@
 
 span > h4 {
     float: right;
-    background-color:darkslategrey;
     text-align: right;
 }
 
@@ -57,35 +56,29 @@ span > h4 {
 
 #bg {
     height: 600px;
-    background-image: url('../img/electric.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-.universe {
-    background-image: url('../img/galaxy.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-.astro {
-    background-image: url('../img/protostar');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-.planet {
-    background-image: url('../img/kinetic.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
+.initial {
+    background-image: url('../img/electric.jpg');
+}
+
+.universe {
+    background-image: url('../img/galaxy.jpg');
+}
+
+.astro {
+    background-image: url('../img/supernova.jpg');
+}
+
+.planet {
+    background-image: url('../img/kinetic.jpg');
+}
+
 .quantum {
     background-image: url('../img/molecule.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 table {
@@ -95,4 +88,19 @@ table {
 
 .new {
     background-color: darkgray;
+}
+
+.details-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.new {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.question-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default function Category({name, val, clickCat}) {
+export default function Category(props) {
     return(
-      <div className = 'scale' onClick = {() => clickCat(val)}>{name}</div>
+      <div className = 'scale' onClick = {() => props.clickCat(props.val)}>{props.name}</div>
     );
 }

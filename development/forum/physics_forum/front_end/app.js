@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import Category from "./components/category.jsx"
 import QuestionList from "./components/questionlist.jsx"
@@ -33,28 +33,55 @@ class App extends React.Component {
     else{
       this.setState({display: "initial"});
     }
-    document.getElementById('root').classList.add(current)
+    
+    const url = 'http://localhost:8000/api'
+    
+    fetch(`${url}` + '?category=' + value)
+      .then(function(result){console.log(result)});
+
+//    fetch(`${url}`, {
+//      method: 'GET',
+//      body: JSON.stringify({category: `${value}`})
+//    })
+//      .then(function(result){console.log(result)});
+//With the fetch, grab user info to check if they're logged in -- null means not logged in.
+
+  }
+
+  postQuestion() {
+    console.log("post a new question")
+
+  }
+  
+  viewQuestion() {
+    console.log("view a question")
+    // possibly do just one div tag to display full question/answer view on right column, replacing the question list
   }
 
   render() {
     return(
-      <div id = "bg" className = "row">
-        <div className = "scale-container col-md-4">
-          <Category name = "Universe Scale" 
-                    clickCat = {this.clickCategory.bind(this)} 
-                    val={1}/>
-          <Category name = "Astrophysics Scale" 
-                    clickCat = {this.clickCategory.bind(this)} 
-                    val={2}/>
-          <Category name = "Earth Scale" 
-                    clickCat = {this.clickCategory.bind(this)} 
-                    val={3}/>
-          <Category name = "Quantum Scale" 
-                    clickCat = {this.clickCategory.bind(this)} 
-                    val={4}/>
-        </div>
-        <QuestionList mode = {this.state.display}/>
+      <div id = "bg" className = {this.state.display}>
+        <div className = "row">
+          <div className = "scale-container col-md-4">
+            <Category name = "Universe Scale" 
+                      clickCat = {this.clickCategory.bind(this)} 
+                      val={1}/>
+            <Category name = "Astrophysics Scale" 
+                      clickCat = {this.clickCategory.bind(this)} 
+                      val={2}/>
+            <Category name = "Earth Scale" 
+                      clickCat = {this.clickCategory.bind(this)} 
+                      val={3}/>
+            <Category name = "Quantum Scale" 
+                      clickCat = {this.clickCategory.bind(this)} 
+                      val={4}/>
+          </div>
+        <QuestionList 
+          mode = {this.state.display}
+          newQuestion = {this.postQuestion}
+          clickQuestion = {this.viewQuestion}/>
       </div>
+    </div>
     )
   }
 }
