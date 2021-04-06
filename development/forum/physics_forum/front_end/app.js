@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import Category from "./components/category.jsx"
 import QuestionList from "./components/questionlist.jsx"
+import NewQ from "./components/newQuestion.jsx"
 
 
 // For the state variables, display is what tells the components what to render (hard-coded values). The values
@@ -9,10 +10,35 @@ import QuestionList from "./components/questionlist.jsx"
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {display: 'initial'};
+    this.state = {
+                  display: 'initial', 
+                  qdata: {user: '', questions: [], answers: []}, 
+                  toHide: true, 
+                  activeArr: [0, 0, 0, 0],
+                  question: '0',
+                  showQ: false,
+                  showA: false,
+                };
+    this.clickCategory = this.clickCategory.bind(this);
+    this.postQuestion = this.postQuestion.bind(this);
+    this.viewQuestion = this.viewQuestion.bind(this);
   }
 
   clickCategory(value) {
+    if(this.state.question) {
+      this.setState({question: '0', qdata: {user: '', questions: [], answers: []}});
+    }
+    let array = [0, 0, 0, 0];
+    if(this.state.activeArr[value - 1] = 'active') {
+      this.setState({activeArr: array});
+    }
+    else {
+      array[value - 1] = 'active';
+      this.setState({activeArr: array});
+    };
+
+    console.log(this.state.activeArr)
+
     let current = this.state.display
     if(value === 1) {
       let newCat = (current === "universe") ? "initial" : "universe"
@@ -34,28 +60,34 @@ class App extends React.Component {
       this.setState({display: "initial"});
     }
     
-    const url = 'http://localhost:8000/api'
-    
-    fetch(`${url}` + '?category=' + value)
-      .then(function(result){console.log(result)});
+    const url = 'http://localhost:8000/api/'
+    fetch(`${url}` + value)
+      .then((response) => response.json())
+      .then((data) => this.setState({qdata: data}));    
 
-//    fetch(`${url}`, {
-//      method: 'GET',
-//      body: JSON.stringify({category: `${value}`})
-//    })
-//      .then(function(result){console.log(result)});
-//With the fetch, grab user info to check if they're logged in -- null means not logged in.
+      if(this.state.qdata.user) {
+        this.setState({toHide: 'False'});
+      }
 
   }
 
-  postQuestion() {
-    console.log("post a new question")
-
+  postQuestion(value) {
+    this.setState ({showQ: !this.state.showQ})
+    console.log("post a new question");
   }
   
-  viewQuestion() {
-    console.log("view a question")
-    // possibly do just one div tag to display full question/answer view on right column, replacing the question list
+  viewQuestion(value) {
+    const val = '' + value
+    this.setState({question: val});
+    const url = 'http://localhost:8000/question/'
+    fetch(`${url}` + value)
+      .then((response) => response.json())
+      .then((data) => {this.setState({qdata: data, question: value})
+    });
+  }
+
+  postAnswer() {
+    console.log('submit an answer to question: ');
   }
 
   render() {
@@ -64,22 +96,31 @@ class App extends React.Component {
         <div className = "row">
           <div className = "scale-container col-md-4">
             <Category name = "Universe Scale" 
-                      clickCat = {this.clickCategory.bind(this)} 
-                      val={1}/>
+                      clickCat = {this.clickCategory} 
+                      val = {1}
+                      active = {this.state.activeArr[0]}/>
             <Category name = "Astrophysics Scale" 
-                      clickCat = {this.clickCategory.bind(this)} 
-                      val={2}/>
+                      clickCat = {this.clickCategory} 
+                      val = {2}
+                      active = {this.state.activeArr[1]}/>
             <Category name = "Earth Scale" 
-                      clickCat = {this.clickCategory.bind(this)} 
-                      val={3}/>
+                      clickCat = {this.clickCategory} 
+                      val = {3}
+                      active = {this.state.activeArr[2]}/>
             <Category name = "Quantum Scale" 
-                      clickCat = {this.clickCategory.bind(this)} 
-                      val={4}/>
+                      clickCat = {this.clickCategory} 
+                      val = {4}
+                      active = {this.state.activeArr[3]}/>
           </div>
         <QuestionList 
-          mode = {this.state.display}
-          newQuestion = {this.postQuestion}
-          clickQuestion = {this.viewQuestion}/>
+                      mode = {this.state.display}
+                      qid = {this.state.question}
+                      data = {this.state.qdata}
+                      newQuestion = {this.postQuestion}
+                      clickQuestion = {this.viewQuestion}
+                      newAnswer = {this.postAnswer}/>
+        <NewQ
+              show = {this.state.showQ}/>
       </div>
     </div>
     )

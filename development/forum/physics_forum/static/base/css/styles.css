@@ -41,6 +41,7 @@ span > h4 {
     color: white;
     font: 1.5em Georgia, serif;
     box-shadow: 2px 2px 2px black;
+    cursor: pointer;
 }
 
 .scale:hover {
@@ -103,4 +104,8 @@ table {
 .question-container {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.active {
+    background-color: rgba(205, 191, 218, 0.9);
 }

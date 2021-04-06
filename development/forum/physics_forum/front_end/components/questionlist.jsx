@@ -1,8 +1,8 @@
 import React from "react";
 
+
 export default function QuestionList(props) {
-  console.log(props.mode)
-  if(props.mode === "initial"){
+  if(props.mode === "initial" && props.qid === '0'){
     return(
       <div className = "questions col-md-8">
         <p>
@@ -23,48 +23,56 @@ export default function QuestionList(props) {
       </div>
     );
   }
-  else if (props.mode === 'universe' || props.mode === 'astro' || props.mode === 'planet' || props.mode === 'quantum') {
+  else if(props.qid === '0' && (props.mode === 'universe' || props.mode === 'astro' || props.mode === 'planet' || props.mode === 'quantum')) {
     return(
       <div className = "questions col-md-8">
-        <button className = "new" 
-                onClick = {props.newQuestion}
-                >New Question</button>
-{/* apply hidden attribut to button  */}
-              
-        <section className = "question-container">
-          <a href = "#" 
-            className = "question-details"
-            onClick = {props.clickQuestion}>
-              Question someone asked
-          </a>
-          <div className = "details-container">
-            <div>5/15/19 3:00</div>
-            <div>MoreCowbell</div>
-            <div>3</div>
-          </div>
-        </section>
-        <section className = "question-container">
-          <a href = "#" 
-            className = "question-details"
-            onClick = "clickQuestion">
-              Question someone else asked
-          </a>
-          <div className = "details-container">
-            <div>8/1/20 6:30</div>
-            <div>Turd Ferguson</div>
-            <div>1</div>
-          </div>
-        </section>
+        <button className = "new"
+                onClick = {props.newQuestion}>
+                  New Question
+        </button>
+{/* need to add in hidden attr then remove when props.data.user is true  */}
+        {props.data.questions.map((q) => {
+          return (
+            <section className = "question-container">
+              <a href = "#"
+                className = "question-details"
+                onClick = {() => {props.clickQuestion(q.id)}}
+                value = {q.id}>
+                  {q.text}
+              </a>
+              <div className = "details-container">
+                <div>Date: {q.time}</div>
+                <div>User: {q.user}</div>
+                <div>Answers: {q.numAnswers}</div>
+              </div>
+            </section>
+          );
+        })
+        }
       </div>
     )
   }
 
-  else {
+  else if (props.qid) {
+    console.log("rec'd data of: ", props.data.questions)
+    console.log("rec'd answers of: ", props.data.answers)
+    
     return(
-      <div>
-        Question and answers
-        <button>Submit an Answer</button>
-      </div>
+      <div className = "questions col-md-8">
+            <section className = "view-question">
+              <p>Question submitted by: {props.data.user} on {props.data.questions[0].time}</p>
+              <p>{props.data.questions[0].text}</p>
+            </section> </div>
+//        {props.data.answers.map((i) => {
+//          return(
+//            <section className = "view-answer">
+//              <p>Answer submitted by: {i.user} on {i.time}</p>
+//              <p>{i.text}</p>
+//            </section>
+//          )
+//        })};
+
+
     )
-  }
-}
+  
+}}

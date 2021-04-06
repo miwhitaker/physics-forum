@@ -1,5 +1,5 @@
 from django.db import models
-import json
+
 
 class Question(models.Model):
     category = models.IntegerField()
@@ -8,11 +8,12 @@ class Question(models.Model):
     time = models.DateTimeField()
     parent = models.IntegerField(null = True)
 
-    def __str__(self):
-        return json.dumps({
+    def to_dict(self):
+        return {
             'category': self.category,
             'user': self.user,
             'text': self.text,
-            'time': self.time,
+            'time': self.time.isoformat(),
             'parent': self.parent,
-        })
+            'id': self.id,
+        }
