@@ -26,17 +26,16 @@ export default function QuestionList(props) {
   else if(props.qid === '0' && (props.mode === 'universe' || props.mode === 'astro' || props.mode === 'planet' || props.mode === 'quantum')) {
     return(
       <div className = "questions col-md-8">
-        <button className = "new"
-                onClick = {props.newQuestion}>
+        <button className = {`new-${props.hide}`}
+                onClick = {props.newQn}>
                   New Question
         </button>
-{/* need to add in hidden attr then remove when props.data.user is true  */}
         {props.data.questions.map((q) => {
           return (
             <section className = "question-container">
               <a href = "#"
                 className = "question-details"
-                onClick = {() => {props.clickQuestion(q.id)}}
+                onClick = {() => {props.selectQn(q.id)}}
                 value = {q.id}>
                   {q.text}
               </a>
@@ -54,25 +53,20 @@ export default function QuestionList(props) {
   }
 
   else if (props.qid) {
-    console.log("rec'd data of: ", props.data.questions)
-    console.log("rec'd answers of: ", props.data.answers)
-    
     return(
       <div className = "questions col-md-8">
             <section className = "view-question">
               <p>Question submitted by: {props.data.user} on {props.data.questions[0].time}</p>
               <p>{props.data.questions[0].text}</p>
-            </section> </div>
-//        {props.data.answers.map((i) => {
-//          return(
-//            <section className = "view-answer">
-//              <p>Answer submitted by: {i.user} on {i.time}</p>
-//              <p>{i.text}</p>
-//            </section>
-//          )
-//        })};
-
-
+            </section>
+        {props.data.answers.map((i) => {
+          return(
+            <section className = "view-answer">
+              <p>Answer submitted by: {i.user} on {i.time}</p>
+              <p>{i.text}</p>
+            </section>
+          )
+        })}
+      </div>
     )
-  
 }}

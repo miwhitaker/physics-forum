@@ -3,6 +3,8 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, permissions
 from .models import Question
 from django.http import JsonResponse
+from django.utils import timezone
+import json
 
 
 def index(request):
@@ -10,6 +12,21 @@ def index(request):
 
 def qlist(request, cat):
     user_name = request.user.username
+    if request.method == "POST":
+        json_request = json.loads(request.body)
+        time = timezone.now()
+        print(cat)
+        print(user_name)
+        print(json_request['thing'])
+        print(time)
+#        new_question = Question.objects.create(
+#            category = cat,
+#            user = user_name,
+#            text = json_request['thing'],
+#            time = time,
+#        )
+#        new_question.save()
+
     questions = [q.to_dict() for q in Question.objects.filter(category = cat).order_by('time')]
     num_answers = []
     for k in questions:
@@ -17,27 +34,11 @@ def qlist(request, cat):
         num_answers = Question.objects.filter(parent = num).count()
         k['numAnswers'] = num_answers
  
-    print(questions)
-
-#    if request.method == "POST":
-#        body = request.body
-#        time = NOW()
-#        parent_id = 1
-#        new_question = Question.objects.create(
-#            category = cat,
-#            user = user_name,
-#            text = body,
-#            time = time,
-#            parent = parent_id,
-#        )
-#        new_question.save()
-
     data = {
         'user': user_name,
         'questions': questions,
         'answers': []
     }
-
     return JsonResponse(data)
  
 
@@ -45,8 +46,6 @@ def view_qn(request, qn):
     user_name = request.user.username
     questions = [l.to_dict() for l in Question.objects.filter(id = qn)]
     answers = [m.to_dict() for m in Question.objects.filter(parent = qn).order_by('time')]
-    print(questions)
-    print(answers)
     data = {
         'user': user_name,
         'questions': questions,
@@ -54,3 +53,9 @@ def view_qn(request, qn):
     }
 
     return JsonResponse(data)
+
+def  new_qn(request, qn):
+    print(qn)
+
+def  new_an(request, an):
+    print(an)

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import Category from "./components/category.jsx"
 import QuestionList from "./components/questionlist.jsx"
-import NewQ from "./components/newQuestion.jsx"
+import NewQuestion from "./components/newQuestion.jsx"
 
 
 // For the state variables, display is what tells the components what to render (hard-coded values). The values
@@ -13,20 +13,24 @@ class App extends React.Component {
     this.state = {
                   display: 'initial', 
                   qdata: {user: '', questions: [], answers: []}, 
-                  toHide: true, 
+                  toHide: 'hide', 
                   activeArr: [0, 0, 0, 0],
                   question: '0',
                   showQ: false,
                   showA: false,
                 };
     this.clickCategory = this.clickCategory.bind(this);
-    this.postQuestion = this.postQuestion.bind(this);
-    this.viewQuestion = this.viewQuestion.bind(this);
+    this.newQuestion = this.newQuestion.bind(this);
+    this.selectQuestion = this.selectQuestion.bind(this);
+    this.submitQuestion = this.submitQuestion.bind(this);
+    this.newAnswer = this.newAnswer.bind(this);
+    this.closeQuestion = this.closeQuestion.bind(this);
   }
+
 
   clickCategory(value) {
     if(this.state.question) {
-      this.setState({question: '0', qdata: {user: '', questions: [], answers: []}});
+      this.setState({question: '0', qdata: {questions: [], answers: []}});
     }
     let array = [0, 0, 0, 0];
     if(this.state.activeArr[value - 1] = 'active') {
@@ -36,8 +40,6 @@ class App extends React.Component {
       array[value - 1] = 'active';
       this.setState({activeArr: array});
     };
-
-    console.log(this.state.activeArr)
 
     let current = this.state.display
     if(value === 1) {
@@ -64,31 +66,64 @@ class App extends React.Component {
     fetch(`${url}` + value)
       .then((response) => response.json())
       .then((data) => this.setState({qdata: data}));    
-
-      if(this.state.qdata.user) {
-        this.setState({toHide: 'False'});
-      }
-
+    if(this.state.qdata.user) {
+      console.log(this.state.qdata.user)
+      this.setState({toHide: 'unhide'});
+    }
   }
 
-  postQuestion(value) {
-    this.setState ({showQ: !this.state.showQ})
+
+  newQuestion() {
+    this.setState ({showQ: true})
     console.log("post a new question");
   }
+
+
+  submitQuestion(value) {
+    if(value.length == 0) {
+      return alert("Your question was empty, please type something in the box or click 'Cancel'");
+    }
+    const lastCharacter = value.slice(-1)
+    if(lastCharacter !== '?') {
+      return alert("Your question should end with a question mark");
+    }
+    this.setState({showQ: false})
+    console.log(value)
+    const qnText = {thing: value}
+    const currCategory = '' + getCatNum(this.state.display);
+    const url = 'http://localhost:8000/api/'
+    fetch(`${url}` + currCategory, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json',
+                    'Accept': 'application/json'},
+          body: JSON.stringify(qnText),
+        })
+      .then((response) => response.json())
+      .then((data) => console.log(data));  
+  }
+
+
+  closeQuestion() {
+    this.setState({showQ: false})
+    console.log('question closed')
+  }
   
-  viewQuestion(value) {
-    const val = '' + value
+
+  selectQuestion(value) {
+    const val = '' + value;
     this.setState({question: val});
     const url = 'http://localhost:8000/question/'
     fetch(`${url}` + value)
       .then((response) => response.json())
-      .then((data) => {this.setState({qdata: data, question: value})
-    });
+      .then((data) => this.setState({qdata: data, question: value})
+    );
   }
 
-  postAnswer() {
+
+  newAnswer() {
     console.log('submit an answer to question: ');
   }
+
 
   render() {
     return(
@@ -116,16 +151,36 @@ class App extends React.Component {
                       mode = {this.state.display}
                       qid = {this.state.question}
                       data = {this.state.qdata}
-                      newQuestion = {this.postQuestion}
-                      clickQuestion = {this.viewQuestion}
-                      newAnswer = {this.postAnswer}/>
-        <NewQ
-              show = {this.state.showQ}/>
+                      hide = {this.state.toHide}
+                      newQn = {this.newQuestion}
+                      selectQn = {this.selectQuestion}
+                      newAns = {this.newAnswer}/>
+        <NewQuestion
+              show = {this.state.showQ}
+              closeQn = {this.closeQuestion}
+              submitQn = {this.submitQuestion}/>
       </div>
     </div>
     )
   }
 }
+
+
+function getCatNum(val) {
+  if(val === 'universe') {
+    return 1;
+  }
+  else if(val === 'astro') {
+    return 2;
+  }
+  else if(val === 'planet') {
+    return 3;
+  }
+  else if(val === 'quantum') {
+    return 4;
+  }
+}
+
 
 ReactDOM.render(
     <App/>,

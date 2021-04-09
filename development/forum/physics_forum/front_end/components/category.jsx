@@ -12,4 +12,3 @@ export default function Category(props) {
     );
 }
 
-//style = {{background: props.active ? 'rgba(189, 164, 209, 0.8)': 'rgba(189, 164, 209, 0.3)'}}

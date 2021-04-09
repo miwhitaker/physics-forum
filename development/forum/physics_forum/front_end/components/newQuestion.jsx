@@ -1,28 +1,38 @@
 import React from "react";
+import Modal from 'react-bootstrap/Modal'
+//import CSRFToken from "./csrftoken"
 
-export default function NewQ(props) {
-    if(props.show){
-        return(
-            <form method = "POST">
-                <Modal show = {props.show} onHide = {close}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>
-                            Post a new question
-                        </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        Body text
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <button onClick = {close}>Close</button>
-                        <button onClick = {close}>Save</button>
-                    </Modal.Footer>
-                </Modal>
-            </form>
-        )}
-
+function NewQuestion(props) {
+    if(props.show) {
+    return(
+            <Modal className = 'modal' 
+                    show = {true} 
+                    size = "xl"
+                    aria-labelledby="contained-modal-title-vcenter">
+                <Modal.Header>
+                    <Modal.Title id = "contained-modal-title-vcenter">Submit a new Question</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <input type = 'text' 
+                            id = "newQuestionText" 
+                            placeholder = "Your question goes here"/>
+                    <div className = "error-message">{props.error}</div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <button variant = "secondary" 
+                            onClick = {() => props.closeQn(document.getElementById("newQuestionText").value='')}>
+                        Cancel
+                    </button>
+                    <button variant = "primary" 
+                            onClick = {() => props.submitQn(document.getElementById("newQuestionText").value)}>
+                        Save
+                    </button>
+                </Modal.Footer>
+            </Modal>
+    )}
     else {return null}
-}
+};
 
-// const close = () => setShow(false);
-// const open = () => setShow(true);
+// <CSRFToken />
+// 
+export default NewQuestion

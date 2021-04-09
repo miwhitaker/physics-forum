@@ -1,12 +1,12 @@
 .header {
-    margin-top: -20px;
+    margin-top: 5px;
     padding-top: 5px;
     text-align: center;
     background: rgb(32, 11, 11);
     color: yellow;
     height: 120px;
     font: Georgia, serif;
-    font-size: 1.2rem;
+    font-size: 1.0rem;
     border-bottom: 2px solid white;
 }
 
@@ -96,7 +96,7 @@ table {
     justify-content: space-evenly;
 }
 
-.new {
+.new-unhide {
     margin-left: auto;
     margin-right: auto;
 }
@@ -109,3 +109,19 @@ table {
 .active {
     background-color: rgba(205, 191, 218, 0.9);
 }
+
+.modal {
+    background-color:rgba(205, 191, 218, 0.9);
+    width: 75%;
+    color: blue;
+}
+
+.new-hide {
+    display: none;
+}
+
+#newQuestionText {
+    width: 75%;
+}
+
+/* */
