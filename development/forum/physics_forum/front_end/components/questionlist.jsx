@@ -28,7 +28,7 @@ export default function QuestionList(props) {
       <div className = "questions col-md-8">
         <button className = {`new-${props.hide}`}
                 onClick = {props.newQn}>
-                  New Question
+                  Post New Question
         </button>
         {props.data.questions.map((q) => {
           return (
@@ -55,18 +55,23 @@ export default function QuestionList(props) {
   else if (props.qid) {
     return(
       <div className = "questions col-md-8">
-            <section className = "view-question">
-              <p>Question submitted by: {props.data.user} on {props.data.questions[0].time}</p>
-              <p>{props.data.questions[0].text}</p>
-            </section>
+        <section className = "view-question">
+          <p>Question submitted by: {props.data.user} on {props.data.questions[0].time}</p>
+          <p>{props.data.questions[0].text}</p>
+        </section>
         {props.data.answers.map((i) => {
           return(
-            <section className = "view-answer">
+            <section className = "view-answer"
+                      key = {i.id}>
               <p>Answer submitted by: {i.user} on {i.time}</p>
               <p>{i.text}</p>
             </section>
           )
         })}
+        <button className = {`new-${props.hide}`}
+                onClick = {props.newAns}>
+                  Post New Answer
+        </button>
       </div>
     )
 }}

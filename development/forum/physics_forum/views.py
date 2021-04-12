@@ -15,17 +15,13 @@ def qlist(request, cat):
     if request.method == "POST":
         json_request = json.loads(request.body)
         time = timezone.now()
-        print(cat)
-        print(user_name)
-        print(json_request['thing'])
-        print(time)
-#        new_question = Question.objects.create(
-#            category = cat,
-#            user = user_name,
-#            text = json_request['thing'],
-#            time = time,
-#        )
-#        new_question.save()
+        new_question = Question.objects.create(
+            category = cat,
+            user = user_name,
+            text = json_request['thing'],
+            time = time,
+        )
+        new_question.save()
 
     questions = [q.to_dict() for q in Question.objects.filter(category = cat).order_by('time')]
     num_answers = []
@@ -44,6 +40,17 @@ def qlist(request, cat):
 
 def view_qn(request, qn):
     user_name = request.user.username
+    if request.method == "POST":
+        json_request = json.loads(request.body)
+        time = timezone.now()
+        new_answer = Question.objects.create(
+            category = json_request['cat'],
+            user = user_name,
+            text = json_request['thing'],
+            time = time,
+            parent = json_request['questionNumber'],
+        )
+        new_answer.save()
     questions = [l.to_dict() for l in Question.objects.filter(id = qn)]
     answers = [m.to_dict() for m in Question.objects.filter(parent = qn).order_by('time')]
     data = {
@@ -51,11 +58,4 @@ def view_qn(request, qn):
         'questions': questions,
         'answers': answers
     }
-
     return JsonResponse(data)
-
-def  new_qn(request, qn):
-    print(qn)
-
-def  new_an(request, an):
-    print(an)

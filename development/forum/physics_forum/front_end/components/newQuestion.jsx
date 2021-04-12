@@ -1,16 +1,16 @@
 import React from "react";
 import Modal from 'react-bootstrap/Modal'
-//import CSRFToken from "./csrftoken"
+
 
 function NewQuestion(props) {
-    if(props.show) {
+    if(props.showQ) {
     return(
             <Modal className = 'modal' 
                     show = {true} 
                     size = "xl"
                     aria-labelledby="contained-modal-title-vcenter">
                 <Modal.Header>
-                    <Modal.Title id = "contained-modal-title-vcenter">Submit a new Question</Modal.Title>
+                    <Modal.Title id = "contained-modal-title-vcenter">Submit a New Question</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <input type = 'text' 
@@ -30,9 +30,35 @@ function NewQuestion(props) {
                 </Modal.Footer>
             </Modal>
     )}
+    else if(props.showA) {
+        return(
+                <Modal className = 'modal' 
+                        show = {true} 
+                        size = "xl"
+                        aria-labelledby="contained-modal-title-vcenter">
+                    <Modal.Header>
+                        <Modal.Title id = "contained-modal-title-vcenter">Submit a New Answer</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div></div>
+                        <input type = 'text' 
+                                id = "newAnswerText" 
+                                placeholder = "Your answer goes here"/>
+                        <div className = "error-message">{props.error}</div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <button variant = "secondary" 
+                                onClick = {() => props.closeQn(document.getElementById("newAnswerText").value='')}>
+                            Cancel
+                        </button>
+                        <button variant = "primary" 
+                                onClick = {() => props.submitAns(document.getElementById("newAnswerText").value)}>
+                            Save
+                        </button>
+                    </Modal.Footer>
+                </Modal>
+        )}
     else {return null}
 };
 
-// <CSRFToken />
-// 
 export default NewQuestion

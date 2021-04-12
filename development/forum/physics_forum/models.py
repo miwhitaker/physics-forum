@@ -6,7 +6,7 @@ class Question(models.Model):
     user = models.CharField(max_length = 50)
     text = models.TextField()
     time = models.DateTimeField()
-    parent = models.IntegerField(null = True)
+    parent = models.IntegerField(null = True, blank = True)
 
     def to_dict(self):
         return {

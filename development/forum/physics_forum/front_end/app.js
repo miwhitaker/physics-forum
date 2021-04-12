@@ -20,11 +20,12 @@ class App extends React.Component {
                   showA: false,
                 };
     this.clickCategory = this.clickCategory.bind(this);
-    this.newQuestion = this.newQuestion.bind(this);
     this.selectQuestion = this.selectQuestion.bind(this);
-    this.submitQuestion = this.submitQuestion.bind(this);
+    this.newQuestion = this.newQuestion.bind(this);
     this.newAnswer = this.newAnswer.bind(this);
     this.closeQuestion = this.closeQuestion.bind(this);
+    this.submitQuestion = this.submitQuestion.bind(this);
+    this.submitAnswer = this.submitAnswer.bind(this);
   }
 
 
@@ -33,7 +34,7 @@ class App extends React.Component {
       this.setState({question: '0', qdata: {questions: [], answers: []}});
     }
     let array = [0, 0, 0, 0];
-    if(this.state.activeArr[value - 1] = 'active') {
+    if(this.state.activeArr[value - 1] === 'active') {
       this.setState({activeArr: array});
     }
     else {
@@ -65,17 +66,22 @@ class App extends React.Component {
     const url = 'http://localhost:8000/api/'
     fetch(`${url}` + value)
       .then((response) => response.json())
-      .then((data) => this.setState({qdata: data}));    
-    if(this.state.qdata.user) {
-      console.log(this.state.qdata.user)
-      this.setState({toHide: 'unhide'});
-    }
+      .then((data) => {
+        this.setState({qdata: data});
+        if(this.state.qdata.user) {
+          this.setState({toHide: 'unhide'});
+        };
+        })
   }
 
 
   newQuestion() {
-    this.setState ({showQ: true})
-    console.log("post a new question");
+    this.setState ({showQ: true, showA: false})
+  }
+
+
+  newAnswer() {
+    this.setState ({showQ: false, showA: true})
   }
 
 
@@ -87,10 +93,9 @@ class App extends React.Component {
     if(lastCharacter !== '?') {
       return alert("Your question should end with a question mark");
     }
-    this.setState({showQ: false})
-    console.log(value)
     const qnText = {thing: value}
     const currCategory = '' + getCatNum(this.state.display);
+    this.setState({showQ: false});
     const url = 'http://localhost:8000/api/'
     fetch(`${url}` + currCategory, {
           method: 'POST',
@@ -99,13 +104,12 @@ class App extends React.Component {
           body: JSON.stringify(qnText),
         })
       .then((response) => response.json())
-      .then((data) => console.log(data));  
+      .then((data) => this.setState({qdata: data}));  
   }
 
 
   closeQuestion() {
-    this.setState({showQ: false})
-    console.log('question closed')
+    this.setState({showQ: false, showA: false})
   }
   
 
@@ -120,8 +124,27 @@ class App extends React.Component {
   }
 
 
-  newAnswer() {
+  submitAnswer(value) {
     console.log('submit an answer to question: ');
+    if(value.length == 0) {
+      return alert("Your answer was empty, please type something in the box or click 'Cancel'");
+    }
+    this.setState({showA: false})
+    const currCategory = '' + getCatNum(this.state.display);
+    const currQuestion = this.state.question
+    const ansText = {thing: value, 
+                      questionNumber: currQuestion,
+                      cat: currCategory}
+    console.log(ansText)
+    const url = 'http://localhost:8000/question/'
+    fetch(`${url}` + currQuestion, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json',
+                    'Accept': 'application/json'},
+          body: JSON.stringify(ansText),
+        })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
   }
 
 
@@ -156,9 +179,11 @@ class App extends React.Component {
                       selectQn = {this.selectQuestion}
                       newAns = {this.newAnswer}/>
         <NewQuestion
-              show = {this.state.showQ}
+              showQ = {this.state.showQ}
+              showA = {this.state.showA}
               closeQn = {this.closeQuestion}
-              submitQn = {this.submitQuestion}/>
+              submitQn = {this.submitQuestion}
+              submitAns = {this.submitAnswer}/>
       </div>
     </div>
     )
