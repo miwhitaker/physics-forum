@@ -179,7 +179,7 @@ class App extends React.Component {
   render() {
     return(
       <div id = "bg" className = {this.state.display}>
-        <div className = "row">
+        <div className = "row main-container">
           <div className = "scale-container col-md-4">
             <Category name = "Universe Scale" 
                       clickCat = {this.clickCategory} 

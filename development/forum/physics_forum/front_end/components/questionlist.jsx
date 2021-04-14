@@ -26,7 +26,7 @@ export default function QuestionList(props) {
   else if(props.qid === '0' && (props.mode === 'universe' || props.mode === 'astro' || props.mode === 'planet' || props.mode === 'quantum')) {
     return(
       <div className = "questions col-md-8">
-        <button className = {`new-${props.hide}`}
+        <button className = {`new-${props.hide} btn btn-primary`}
                 onClick = {props.newQn}>
                   Post New Question
         </button>
@@ -56,21 +56,20 @@ export default function QuestionList(props) {
     return(
       <div className = "questions col-md-8">
         <section className = "view-question">
-          <div className = "submit-details">
-            <p className = 'quser'>Question submitted by: {props.data.user}</p>
-            <p className = 'qdate'>Date: {props.data.questions[0].time}</p>
-          </div>
           <p className = 'qn-text'>{props.data.questions[0].text}</p>
+          <p className = 'quser'>
+            Question submitted by: {props.data.user} on {props.data.questions[0].time}
+          </p>
         </section>
         {props.data.answers.map((i) => {
           return(
             <section className = "view-answer" key = {i.id}>
-              <p className = 'quser'>Answer submitted by: {i.user} on {i.time}</p>
               <p className = 'qn-text'>{i.text}</p>
+              <p className = 'quser'>Answer submitted by: {i.user} on {i.time}</p>
             </section>
           )
         })}
-        <button className = {`new-${props.hide}`}
+        <button className = {`new-${props.hide} btn btn-primary`}
                 onClick = {props.newAns}>
                   Post New Answer
         </button>
