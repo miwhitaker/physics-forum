@@ -28,6 +28,9 @@ span > h4 {
     margin-right: 15px;
 }
 
+.catch {
+    font-style: italic;
+}
 .scale {
     margin-top: 15px;
     margin-left: 5px;
@@ -112,7 +115,7 @@ table {
 
 .modal {
     background-color:rgba(205, 191, 218, 0.9);
-    width: 75%;
+    width: 100%;
     color: blue;
 }
 
@@ -120,8 +123,30 @@ table {
     display: none;
 }
 
-#newQuestionText {
+#newQuestionText, #newAnswerText {
     width: 75%;
+    height: 200px;
+    margin-top: 10px;
 }
 
-/* */
+.view-question, .view-answer {
+    border-bottom: 2px solid #CCCCCC;
+}
+
+.qtext {
+    font-style: italic;
+    color: darkcyan;
+}
+
+.quser, .qdate {
+    color: blue;
+}
+
+.qn-text {
+    margin-left: 20px;
+}
+
+.submit-details {
+    display: flex;
+    justify-content: space-between;
+}

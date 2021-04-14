@@ -13,7 +13,8 @@ function NewQuestion(props) {
                     <Modal.Title id = "contained-modal-title-vcenter">Submit a New Question</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <input type = 'text' 
+                    <textarea rows = '2' 
+                            type = 'text' 
                             id = "newQuestionText" 
                             placeholder = "Your question goes here"/>
                     <div className = "error-message">{props.error}</div>
@@ -31,6 +32,7 @@ function NewQuestion(props) {
             </Modal>
     )}
     else if(props.showA) {
+        console.log(props.data)
         return(
                 <Modal className = 'modal' 
                         show = {true} 
@@ -40,9 +42,10 @@ function NewQuestion(props) {
                         <Modal.Title id = "contained-modal-title-vcenter">Submit a New Answer</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <div></div>
-                        <input type = 'text' 
-                                id = "newAnswerText" 
+                        <div className = "qtext">{props.data.questions[0].text}</div>
+                        <textarea rows = '2'
+                                type = 'text' 
+                                id = "newAnswerText"
                                 placeholder = "Your answer goes here"/>
                         <div className = "error-message">{props.error}</div>
                     </Modal.Body>

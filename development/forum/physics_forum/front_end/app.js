@@ -67,11 +67,34 @@ class App extends React.Component {
     fetch(`${url}` + value)
       .then((response) => response.json())
       .then((data) => {
+        for(let i = 0; i < data.questions.length; i++) {
+          const newFormat = dateConverter(data.questions[i].time);
+          data.questions[i].time = newFormat;
+        }
         this.setState({qdata: data});
         if(this.state.qdata.user) {
           this.setState({toHide: 'unhide'});
         };
         })
+  }
+
+
+  selectQuestion(value) {
+    const val = '' + value;
+    this.setState({question: val});
+    const url = 'http://localhost:8000/question/'
+    fetch(`${url}` + value)
+      .then((response) => response.json())
+      .then((data) => {
+        const newerFormat = dateConverter(data.questions[0].time);
+        data.questions[0].time = newerFormat;
+        for(let i = 0; i < data.answers.length; i++) {
+          const newFormat = dateConverter(data.answers[i].time);
+          data.answers[i].time = newFormat;
+        }
+        this.setState({qdata: data, question: value})
+      }
+    );
   }
 
 
@@ -82,6 +105,11 @@ class App extends React.Component {
 
   newAnswer() {
     this.setState ({showQ: false, showA: true})
+  }
+
+
+  closeQuestion() {
+    this.setState({showQ: false, showA: false})
   }
 
 
@@ -104,23 +132,14 @@ class App extends React.Component {
           body: JSON.stringify(qnText),
         })
       .then((response) => response.json())
-      .then((data) => this.setState({qdata: data}));  
-  }
-
-
-  closeQuestion() {
-    this.setState({showQ: false, showA: false})
-  }
-  
-
-  selectQuestion(value) {
-    const val = '' + value;
-    this.setState({question: val});
-    const url = 'http://localhost:8000/question/'
-    fetch(`${url}` + value)
-      .then((response) => response.json())
-      .then((data) => this.setState({qdata: data, question: value})
-    );
+      .then((data) => {
+        for(let i = 0; i < data.questions.length; i++) {
+          const newFormat = dateConverter(data.questions[i].time);
+          data.questions[i].time = newFormat;
+        }
+        this.setState({qdata: data})
+        }
+      );  
   }
 
 
@@ -144,7 +163,16 @@ class App extends React.Component {
           body: JSON.stringify(ansText),
         })
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        const newerFormat = dateConverter(data.questions[0].time);
+        data.questions[0].time = newerFormat;
+        for(let i = 0; i < data.answers.length; i++) {
+          const newFormat = dateConverter(data.answers[i].time);
+          data.answers[i].time = newFormat;
+        }
+        this.setState({qdata: data});
+        }
+      )
   }
 
 
@@ -181,6 +209,7 @@ class App extends React.Component {
         <NewQuestion
               showQ = {this.state.showQ}
               showA = {this.state.showA}
+              data = {this.state.qdata}
               closeQn = {this.closeQuestion}
               submitQn = {this.submitQuestion}
               submitAns = {this.submitAnswer}/>
@@ -204,6 +233,33 @@ function getCatNum(val) {
   else if(val === 'quantum') {
     return 4;
   }
+}
+
+// This function converts the date from iso format to one I prefer to use
+function dateConverter(date) {
+  const timeArr = [];
+  const merid = [];
+  const dateArr = date.split('-');
+  const month = dateArr[1];
+  const day = dateArr[2][0] + dateArr[2][1];
+  const year = dateArr[0];
+  timeArr.push(dateArr[2][3] + dateArr[2][4]);
+  timeArr.push(dateArr[2][6] + dateArr[2][7]);
+  if(timeArr[0] == 0) {
+    timeArr[0] = 12;
+    merid.push('AM');
+  }
+  else if(timeArr[0] >= 13) {
+    timeArr[0] -= 12;
+    merid.push('PM');
+  }
+  else if(timeArr[0] == 12) {
+    merid.push('PM');
+  }
+  else{merid.push('AM')};
+  const mdy = [month, day, year];
+  const datetime = String(mdy.join("/")) + " " + String(timeArr.join(":")) + " " + merid.pop();
+  return datetime;
 }
 
 

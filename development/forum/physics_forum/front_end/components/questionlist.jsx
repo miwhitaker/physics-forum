@@ -32,7 +32,7 @@ export default function QuestionList(props) {
         </button>
         {props.data.questions.map((q) => {
           return (
-            <section className = "question-container">
+            <section className = "question-container" key = {q.id.toString()}>
               <a href = "#"
                 className = "question-details"
                 onClick = {() => {props.selectQn(q.id)}}
@@ -56,15 +56,17 @@ export default function QuestionList(props) {
     return(
       <div className = "questions col-md-8">
         <section className = "view-question">
-          <p>Question submitted by: {props.data.user} on {props.data.questions[0].time}</p>
-          <p>{props.data.questions[0].text}</p>
+          <div className = "submit-details">
+            <p className = 'quser'>Question submitted by: {props.data.user}</p>
+            <p className = 'qdate'>Date: {props.data.questions[0].time}</p>
+          </div>
+          <p className = 'qn-text'>{props.data.questions[0].text}</p>
         </section>
         {props.data.answers.map((i) => {
           return(
-            <section className = "view-answer"
-                      key = {i.id}>
-              <p>Answer submitted by: {i.user} on {i.time}</p>
-              <p>{i.text}</p>
+            <section className = "view-answer" key = {i.id}>
+              <p className = 'quser'>Answer submitted by: {i.user} on {i.time}</p>
+              <p className = 'qn-text'>{i.text}</p>
             </section>
           )
         })}
