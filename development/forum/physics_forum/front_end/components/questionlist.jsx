@@ -1,4 +1,5 @@
 import React from "react";
+import CategoryHeader from "./categoryheader.jsx"
 
 
 export default function QuestionList(props) {
@@ -26,28 +27,32 @@ export default function QuestionList(props) {
   else if(props.qid === '0' && (props.mode === 'universe' || props.mode === 'astro' || props.mode === 'planet' || props.mode === 'quantum')) {
     return(
       <div className = "questions col-md-8">
-        <button className = {`new-${props.hide} btn btn-primary`}
-                onClick = {props.newQn}>
-                  Post New Question
-        </button>
-        {props.data.questions.map((q) => {
-          return (
-            <section className = "question-container" key = {q.id.toString()}>
-              <a href = "#"
-                className = "question-details"
-                onClick = {() => {props.selectQn(q.id)}}
-                value = {q.id}>
-                  {q.text}
-              </a>
-              <div className = "details-container">
-                <div>Date: {q.time}</div>
-                <div>User: {q.user}</div>
-                <div>Answers: {q.numAnswers}</div>
-              </div>
-            </section>
-          );
-        })
-        }
+        <div className = "subheader">
+          <CategoryHeader mode = {props.mode}/>
+            <div>
+              <button className = {`new-${props.hide} btn btn-primary`}
+                      onClick = {props.newQn}>
+                        Post New Question
+              </button>
+            </div>
+        </div>
+          {props.data.questions.map((q) => {
+            return (
+              <section className = "question-container" key = {q.id.toString()}>
+                <a href = "#"
+                  className = "question-details"
+                  onClick = {() => {props.selectQn(q.id)}}
+                  value = {q.id}>
+                    {q.text}
+                </a>
+                <div className = "details-container">
+                  <div>Answers: {q.numAnswers}</div>
+                  <div>Question submitted by: {q.user} on {q.time}</div>
+                </div>
+              </section>
+            );
+          })
+          }
       </div>
     )
   }

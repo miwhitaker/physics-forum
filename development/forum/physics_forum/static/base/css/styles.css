@@ -15,15 +15,21 @@
     margin-right: 0;
 }
 
+.top {
+    display: flex;
+    justify-content: space-between
+}
+
 .log {
     color: whitesmoke;
     padding-right: 5px;
     text-align: right;
 }
 
-span > h4 {
+h4 {
     float: right;
     text-align: right;
+    font-size: 1.0rem;
 }
 
 .login-info {
@@ -101,13 +107,15 @@ table {
 
 .details-container {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    font-style: italic;
+
 }
 
 .new-unhide {
     margin: 5px;
     border-color: #CCCCCC;
-    box-shadow: #5e5a74;
+    float: right;
 }
 
 .question-container {
@@ -154,10 +162,13 @@ table {
     margin-left: 20px;
 }
 
-button {
-    float: right;
+.question-details {
+    color: rgb(114, 124, 216);
+    text-decoration: underline;
+}
+.subheader {
+    border-bottom: 2px solid #CCCCCC;
+    display: flex;
+    justify-content: space-between;
 }
 
-.question-details {
-    color: whitesmoke;
-}

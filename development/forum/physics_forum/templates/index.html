@@ -3,27 +3,29 @@
 {% load static %}
 
 {% block nav %}
-<div class = "catch">
-    THE place to get answers to your physics questions!
-</div>
-{% if request.user.is_authenticated %}
-    <div class = "log">
-        <h4>You are logged in as
-            {% if request.user.first_name %}
-                {{ request.user.first_name }}
-            {% else %}
-                {{ request.user.username }}
-            {% endif %}
-            <a href = "{% url 'auth_logout' %}">Log Out</a>
-        </h4>
+<div class = "top">
+    <div class = "catch">
+        THE place to get answers to your physics questions!
     </div>
-{% else %}
-    <span>
-        <h4>
-            You are not logged in, click to <a href = "{% url 'auth_login' %}">Log In</a>
-        </h4>
-    </span>
-{% endif %}
+    {% if request.user.is_authenticated %}
+        <div class = "log">
+            <h4>You are logged in as
+                {% if request.user.first_name %}
+                    {{ request.user.first_name }}
+                {% else %}
+                    {{ request.user.username }}
+                {% endif %}
+                <a href = "{% url 'auth_logout' %}">Log Out</a>
+            </h4>
+        </div>
+    {% else %}
+        <span>
+            <h4>
+                You are not logged in, click to <a href = "{% url 'auth_login' %}">Log In</a>
+            </h4>
+        </span>
+    {% endif %}
+</div>
 {% endblock %}
 
 {% block content %}
