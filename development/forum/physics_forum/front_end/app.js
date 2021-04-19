@@ -18,6 +18,7 @@ class App extends React.Component {
                   question: '0',
                   showQ: false,
                   showA: false,
+                  error: ''
                 };
     this.clickCategory = this.clickCategory.bind(this);
     this.selectQuestion = this.selectQuestion.bind(this);
@@ -114,12 +115,15 @@ class App extends React.Component {
 
 
   submitQuestion(value) {
+    this.setState({error: ''})
     if(value.length == 0) {
-      return alert("Your question was empty, please type something in the box or click 'Cancel'");
+      this.setState({error: 'ERROR: Your question was empty, please type something in the box or click "Cancel"'})
+      return 
     }
     const lastCharacter = value.slice(-1)
     if(lastCharacter !== '?') {
-      return alert("Your question should end with a question mark");
+      this.setState({error: "ERROR: Your question should end with a question mark"});
+      return
     }
     const qnText = {thing: value}
     const currCategory = '' + getCatNum(this.state.display);
@@ -144,17 +148,16 @@ class App extends React.Component {
 
 
   submitAnswer(value) {
-    console.log('submit an answer to question: ');
     if(value.length == 0) {
-      return alert("Your answer was empty, please type something in the box or click 'Cancel'");
+      this.setState({error: 'ERROR: Your answer was empty, please type something in the box or click "Cancel"'})
+      return 
     }
-    this.setState({showA: false})
+    this.setState({showA: false, error: ''})
     const currCategory = '' + getCatNum(this.state.display);
     const currQuestion = this.state.question
     const ansText = {thing: value, 
                       questionNumber: currQuestion,
                       cat: currCategory}
-    console.log(ansText)
     const url = 'http://localhost:8000/question/'
     fetch(`${url}` + currQuestion, {
           method: 'POST',
@@ -210,6 +213,7 @@ class App extends React.Component {
               showQ = {this.state.showQ}
               showA = {this.state.showA}
               data = {this.state.qdata}
+              error = {this.state.error}
               closeQn = {this.closeQuestion}
               submitQn = {this.submitQuestion}
               submitAns = {this.submitAnswer}/>

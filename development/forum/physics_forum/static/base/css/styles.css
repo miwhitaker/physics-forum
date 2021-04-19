@@ -1,5 +1,4 @@
 .header {
-    margin-top: 5px;
     padding-top: 5px;
     text-align: center;
     background: rgb(32, 11, 11);
@@ -8,6 +7,7 @@
     font: Georgia, serif;
     font-size: 1.0rem;
     border-bottom: 2px solid white;
+    
 }
 
 .main-container {
@@ -15,20 +15,16 @@
     margin-right: 0;
 }
 
-.top {
-    display: flex;
-    justify-content: space-between
-}
-
 .log {
     color: whitesmoke;
     padding-right: 5px;
+    background: rgb(32, 11, 11);
     text-align: right;
+    float: right;
+
 }
 
-h4 {
-    float: right;
-    text-align: right;
+.log > h4 {
     font-size: 1.0rem;
 }
 
@@ -40,7 +36,7 @@ h4 {
 }
 
 .catch {
-    font-style: italic;
+    text-align: center;
 }
 .scale {
     margin-top: 15px;
@@ -74,6 +70,7 @@ h4 {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    overflow-y: auto;
 }
 
 .initial {
@@ -172,3 +169,6 @@ table {
     justify-content: space-between;
 }
 
+.error-message {
+    color: red;
+}

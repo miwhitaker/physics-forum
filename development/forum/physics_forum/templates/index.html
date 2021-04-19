@@ -3,9 +3,9 @@
 {% load static %}
 
 {% block nav %}
-<div class = "top">
     <div class = "catch">
-        THE place to get answers to your physics questions!
+        <h1>Physics Forum</h1>
+        <i>THE place to get answers to your physics questions!</i>
     </div>
     {% if request.user.is_authenticated %}
         <div class = "log">
@@ -19,13 +19,12 @@
             </h4>
         </div>
     {% else %}
-        <span>
+        <div class = "log">
             <h4>
                 You are not logged in, click to <a href = "{% url 'auth_login' %}">Log In</a>
             </h4>
-        </span>
+        </div>
     {% endif %}
-</div>
 {% endblock %}
 
 {% block content %}

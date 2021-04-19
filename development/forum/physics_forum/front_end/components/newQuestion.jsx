@@ -50,11 +50,11 @@ function NewQuestion(props) {
                         <div className = "error-message">{props.error}</div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <button variant = "secondary" 
+                        <button className = "btn btn-secondary" 
                                 onClick = {() => props.closeQn(document.getElementById("newAnswerText").value='')}>
                             Cancel
                         </button>
-                        <button variant = "primary" 
+                        <button className = "btn btn-primary" 
                                 onClick = {() => props.submitAns(document.getElementById("newAnswerText").value)}>
                             Save
                         </button>
