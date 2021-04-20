@@ -64,7 +64,8 @@ class App extends React.Component {
       this.setState({display: "initial"});
     }
     
-    const url = process.env.API_URL + 'api/'
+    const url = 'https://physicsforum.herokuapp.com/' + 'api/'
+//    const url = 'http://localhost:8000/api/'
     fetch(`${url}` + value)
       .then((response) => response.json())
       .then((data) => {
@@ -83,7 +84,8 @@ class App extends React.Component {
   selectQuestion(value) {
     const val = '' + value;
     this.setState({question: val});
-    const url = process.env.API_URL + 'question/'
+    const url = 'https://physicsforum.herokuapp.com/' + 'question/';
+//    const url = 'http://localhost:8000/question/';
     fetch(`${url}` + value)
       .then((response) => response.json())
       .then((data) => {
@@ -128,7 +130,8 @@ class App extends React.Component {
     const qnText = {thing: value}
     const currCategory = '' + getCatNum(this.state.display);
     this.setState({showQ: false});
-    const url = process.env.API_URL + 'api/'
+    const url = 'https://physicsforum.herokuapp.com/' + 'api/'
+//    const url = 'http://localhost:8000/api/'
     fetch(`${url}` + currCategory, {
           method: 'POST',
           headers: {'Content-Type': 'application/json',
@@ -158,7 +161,8 @@ class App extends React.Component {
     const ansText = {thing: value, 
                       questionNumber: currQuestion,
                       cat: currCategory}
-    const url = process.env.API_URL + 'questions/'
+    const url = 'https://physicsforum.herokuapp.com/' + 'questions/';
+//    const url = 'http://localhost:8000/questions/';
     fetch(`${url}` + currQuestion, {
           method: 'POST',
           headers: {'Content-Type': 'application/json',
