@@ -1,1 +1,1 @@
-web: cd development/forum && python manage.py runserver
+web: cd development/forum && python manage.py runserver 0.0.0.0:5000
