@@ -26,7 +26,7 @@ SECRET_KEY = '@r)ggt@j4^-y_6_37f7*f473epe-@qrru186%k*7=atf)_7&)f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['physicsforum.herokuapp.com']
 
 
 # Application definition

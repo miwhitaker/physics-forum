@@ -19,7 +19,7 @@
     color: whitesmoke;
     padding-right: 5px;
     background: rgb(32, 11, 11);
-    text-align: right;
+    text-align: center;
     float: right;
 
 }
@@ -171,4 +171,10 @@ table {
 
 .error-message {
     color: red;
+}
+
+@media screen and (min-width: 900px) {
+    .log {
+        text-align: right;
+    }
 }
