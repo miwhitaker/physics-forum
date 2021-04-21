@@ -64,8 +64,8 @@ class App extends React.Component {
       this.setState({display: "initial"});
     }
     
-    const url = 'https://physicsforum.herokuapp.com/' + 'api/'
-//    const url = 'http://localhost:8000/api/'
+//    const url = 'https://physicsforum.herokuapp.com/' + 'api/'
+    const url = 'http://localhost:8000/api/'
     fetch(`${url}` + value)
       .then((response) => response.json())
       .then((data) => {
@@ -161,8 +161,8 @@ class App extends React.Component {
     const ansText = {thing: value, 
                       questionNumber: currQuestion,
                       cat: currCategory}
-    const url = 'https://physicsforum.herokuapp.com/' + 'questions/';
-//    const url = 'http://localhost:8000/questions/';
+    const url = 'https://physicsforum.herokuapp.com/' + 'question/';
+//    const url = 'http://localhost:8000/question/';
     fetch(`${url}` + currQuestion, {
           method: 'POST',
           headers: {'Content-Type': 'application/json',
