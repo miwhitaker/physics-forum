@@ -149,3 +149,8 @@ REST_FRAMEWORK = {
 
 #Django database settings
 DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = (
+    'physicsforum.herokuapp.com/'
+)
