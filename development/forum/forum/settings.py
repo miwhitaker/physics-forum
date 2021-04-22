@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'physics_forum',
     'rest_framework',
 ]
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -79,9 +81,9 @@ WSGI_APPLICATION = 'forum.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASE_URL = os.environ['DATABASE_URL']
-
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+#DATABASE_URL = os.environ['DATABASE_URL']
+#
+#conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 DATABASES = {
     'default': {
@@ -148,9 +150,15 @@ REST_FRAMEWORK = {
 }
 
 #Django database settings
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+#DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+    'https://physicsforum.herokuapp.com',
+    'https://physicsforum.herokuapp.com/api',
+    'https://physicsforum.herokuapp.com/question',
+    'https://physicsforum.herokuapp.com/#'
+]
 CORS_ORIGIN_WHITELIST = (
     'physicsforum.herokuapp.com/'
 )
