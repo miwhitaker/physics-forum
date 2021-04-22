@@ -19,5 +19,4 @@ User stories:
 2. As a college instructor, I want somewhere to see students' questions so that I can provide answers outside class time.
 3. As an astronomy enthusiast, I want a place where I can ask questions so that I can learn more about what I'm seeing in my telescope.
 
-Techologies used: Python Django (REST API), ReactJS (front-end), Webpack CLI and Babel (to bundle the JavaScript), HTML, CSS
-Database: PostgreSQL (SQLite3 for localhost)
+Techologies used: Python Django (REST API), ReactJS (front-end), HTML, CSS.
